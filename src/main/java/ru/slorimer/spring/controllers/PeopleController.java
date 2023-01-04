@@ -1,14 +1,10 @@
 package ru.slorimer.spring.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.slorimer.spring.dao.PersonDAO;
-import ru.slorimer.spring.models.Item;
 import ru.slorimer.spring.models.Person;
-import ru.slorimer.spring.services.ItemService;
 import ru.slorimer.spring.services.PeopleService;
 
 import javax.validation.Valid;
@@ -19,26 +15,21 @@ public class PeopleController {
 
 
     private final PeopleService peopleService;
-    private final ItemService itemService;
 
-    public PeopleController(PeopleService peopleService, ItemService itemService) {
+    public PeopleController(PeopleService peopleService) {
         this.peopleService = peopleService;
-        this.itemService = itemService;
     }
 
     @GetMapping()
     public String index(Model model) {
         model.addAttribute("people", peopleService.findAll());
-
-        itemService.findByItemName("tarelka");
-        itemService.findByOwner(peopleService.findAll().get(0));
-        peopleService.test();
         return "people/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
         model.addAttribute("person", peopleService.findOne(id));
+        model.addAttribute("books", peopleService.getBooksByPersonId(id));
         return "people/show";
     }
 

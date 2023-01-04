@@ -1,13 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Show</title>
 </head>
 <body>
 <p th:text="${person.getName() + ', ' + person.getAge()}">VALUE</p>
-<p th:text="${'Email: ' + person.getEmail()}">VALUE</p>
-<p th:text="${person.getId()}">VALUE</p>
+<div th:if="${books.isEmpty()}">
+    <p>Человек пока не взял ни одной книги</p>
+    <hr/>
+</div>
+
+<div th:if="${!books.isEmpty()}">
+    <hr/>
+    <p>Книги:</p>
+    <br/>
+    <table th:each="book : ${books}">
+        <tr>
+            <td>
+                <span th:text="${book.getBookName() + ', ' + book.getAuthor() + ', ' + book.getCreatedYear()}">
+                book
+                </span>
+            </td>
+        </tr>
+    </table>
+</div>
 
 <a th:href="@{/people/{id}/edit(id=${person.getId()})}">Edit</a>
 

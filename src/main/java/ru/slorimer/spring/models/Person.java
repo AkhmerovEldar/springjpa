@@ -1,11 +1,15 @@
 package ru.slorimer.spring.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Person")
@@ -24,22 +28,14 @@ public class Person {
     @Column(name = "age")
     private int age;
 
-    @Column(name = "email")
-    @NotEmpty(message = "Email should not be empty")
-    @Email
-    private String email;
-
     @OneToMany(mappedBy = "owner")
-    private List<Item> items;
+    private List<Book> books;
 
-    public Person() {
+    public Person() {}
 
-    }
-
-    public Person(String name, int age, String email) {
+    public Person(String name, int age) {
         this.name = name;
         this.age = age;
-        this.email = email;
     }
 
     public int getId() {
@@ -66,20 +62,11 @@ public class Person {
         this.age = age;
     }
 
-    public String getEmail() {
-        return email;
+    public List<Book> getBooks() {
+        return books;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @Override
-    public String toString() {
-        return "Person{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                '}';
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 }
