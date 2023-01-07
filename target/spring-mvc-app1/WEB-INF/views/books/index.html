@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>index</title>
 </head>
-<body>
+<body bgcolor="">
 
 <div th:each="book : ${books}">
     <a th:href="@{/books/{id}(id=${book.getId()})}"
@@ -14,7 +14,11 @@
 <br/>
 <hr/>
 
+<a href="/people">People</a>
+<br/>
 <a href="/books/new">Create new book</a>
+<br/>
+<a href="/books/search">Search</a>
 
 </body>
 </html>

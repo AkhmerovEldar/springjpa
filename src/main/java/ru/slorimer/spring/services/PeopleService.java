@@ -46,11 +46,11 @@ public class PeopleService {
         if (person.isPresent()){
             Hibernate.initialize(person.get().getBooks());
 
-//            person.get().getBooks().forEach(book -> {
-//                long diffInMillies = Math.abs(book.getTakenAt().getTime() - new Date().getTime());
-//                if (diffInMillies > 864000000)
-//                    book.setExpired(true);
-//            });
+            person.get().getBooks().forEach(book -> {
+                long diffInMillies = Math.abs(book.getTakenAt().getTime() - new Date().getTime());
+                if (diffInMillies > 864000000)
+                    book.setExpired(true);
+            });
             return person.get().getBooks();
         }
         else {
